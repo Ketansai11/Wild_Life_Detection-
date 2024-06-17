@@ -58,13 +58,13 @@ Detailed instructions for configuring Gelan-c.
 Detailed instructions for configuring Yolov9-e.
 
 # Authenticate and Download the Dataset
-Authenticate with Roboflow to download the dataset. Ensure the dataset is saved inside the `{HOME}/yolov9` directory for successful training. The example uses the `football-players-detection` dataset.
+Authenticate with Roboflow to download the dataset. Ensure the dataset is saved inside the `{HOME}/yolov9` directory for successful training. The example uses the `Wild-Animal-detection` dataset.
 
 `from roboflow import Roboflow`
 
 `rf = Roboflow(api_key="YOUR_API_KEY")`
 
-`project = rf.workspace("roboflow-jvuqo").project("football-players-detection-3zvbc")`
+`project = rf.workspace("roboflow-jvuqo").project("Wild-Animal-detection-3zvbc")`
 
 `dataset = project.version(1).download("yolov9")`
 
