@@ -5,74 +5,79 @@ This repository contains a Jupyter Notebook that demonstrates how to use the YOL
   1. Before You Start
   2. Clone and Install
   3. Download Model Weights
-  4. Download Example Data
-  5. Detection with Pre-trained COCO Model
-  6. Gelan-c
-  7. Yolov9-e
-  8. Authenticate and Download the Dataset
-  9. Train Custom Model
-  10. Examine Training Results
-  11. Validate Custom Model
-  12. Inference with Custom Model
+  4. Detection with Pre-trained COCO Model
+  5. Gelan-c
+  6. Yolov9-e
+  7. Authenticate and Download the Dataset
+  8. Train Custom Model
+  9. Examine Training Results
+  10. Validate Custom Model
+  11. Inference with Custom Model
 # Before You Start
-Ensure that you have access to a GPU for faster processing. You can verify GPU access using the nvidia-smi command. If needed, navigate to Edit -> Notebook settings -> Hardware accelerator, set it to GPU, and click Save.
+Ensure that you have access to a GPU for faster processing. You can verify GPU access using the nvidia-smi command. If needed, navigate to `Edit` -> `Notebook settings` -> `Hardware accelerator`, set it to GPU, and click Save.
 
 bash
-!nvidia-smi
-Clone and Install
+
+`!nvidia-smi`
+
+# Clone and Install
 Clone the YOLO-V9 repository and install the necessary dependencies. Note that we are using a forked version of the repository due to a bug in the original.
 
-python
-Copy code
-import os
-HOME = os.getcwd()
-print(HOME)
+`import os`
 
-!git clone https://github.com/SkalskiP/yolov9.git
-%cd yolov9
-!pip install -r requirements.txt -q
-!pip install -q roboflow
-Download Model Weights
+`HOME = os.getcwd()`
+
+`print(HOME)`
+
+`!git clone https://github.com/SkalskiP/yolov9.git`
+
+`%cd yolov9`
+
+`!pip install -r requirements.txt -q`
+
+`!pip install -q roboflow`
+
+# Download Model Weights
 Download the pre-trained model weights required for YOLO-V9.
 
-bash
-Copy code
-!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-c.pt
-!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-e.pt
-!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-c.pt
-!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-e.pt
-Download Example Data
-Download the example data for testing the model from the following link:
-Example Data
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-c.pt`
 
-Detection with Pre-trained COCO Model
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-e.pt`
+
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-c.pt`
+
+`!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-e.pt`
+
+# Detection with Pre-trained COCO Model
 Use the pre-trained COCO model to perform detection on the example data.
 
-Gelan-c
+# Gelan-c
 Detailed instructions for configuring Gelan-c.
 
-Yolov9-e
+# Yolov9-e
 Detailed instructions for configuring Yolov9-e.
 
-Authenticate and Download the Dataset
-Authenticate with Roboflow to download the dataset. Ensure the dataset is saved inside the {HOME}/yolov9 directory for successful training. The example uses the football-players-detection dataset.
+# Authenticate and Download the Dataset
+Authenticate with Roboflow to download the dataset. Ensure the dataset is saved inside the `{HOME}/yolov9` directory for successful training. The example uses the `football-players-detection` dataset.
 
-python
-Copy code
-from roboflow import Roboflow
-rf = Roboflow(api_key="YOUR_API_KEY")
-project = rf.workspace("roboflow-jvuqo").project("football-players-detection-3zvbc")
-dataset = project.version(1).download("yolov9")
-Train Custom Model
+`from roboflow import Roboflow`
+
+`rf = Roboflow(api_key="YOUR_API_KEY")`
+
+`project = rf.workspace("roboflow-jvuqo").project("football-players-detection-3zvbc")`
+
+`dataset = project.version(1).download("yolov9")`
+
+# Train Custom Model
 Instructions and commands for training the YOLO-V9 model on the downloaded dataset will be provided in the notebook.
 
-Examine Training Results
+# Examine Training Results
 Analyze the results of your model training.
 
-Validate Custom Model
+# Validate Custom Model
 Validate the performance of your custom model on a test dataset.
 
-Inference with Custom Model
-Run inference using the trained model and visualize the results. If you want to run inference using your own file as input, upload the image to the notebook and update the SOURCE_IMAGE_PATH variable with the path to your file.
+# Inference with Custom Model
+Run inference using the trained model and visualize the results. If you want to run inference using your own file as input, upload the image to the notebook and update the`SOURCE_IMAGE_PATH` variable with the path to your file.
 
-By default, the results of each inference session are saved in {HOME}/yolov9/runs/detect/, in directories named exp, exp2, exp3, etc. You can override this behavior using the --name parameter.
+By default, the results of each inference session are saved in `{HOME}/yolov9/runs/detect/`, in directories named `exp`, `exp2`,`exp3`, etc. You can override this behavior using the `--name parameter`.
