@@ -1,25 +1,78 @@
-Yolo-V9 for Animal Life Detection
-This repository contains a Jupyter Notebook that demonstrates the use of YOLOv9 (You Only Look Once version 9) for detecting wildlife in images. YOLOv9 is a state-of-the-art object detection model, and this notebook provides a step-by-step guide to setting up and running the model for animal life detection.
+# Yolo-V9 for Wild Animal Life Detection
+This repository contains a Jupyter Notebook that demonstrates how to use the YOLO-V9 (You Only Look Once, Version 9) model for detecting wildlife in images. The notebook includes steps to set up the environment, download necessary datasets and model weights, and perform inference and training using YOLO-V9.
 
-Before You Start
-Make sure that your environment has access to a GPU for faster computation. You can check GPU availability using the nvidia-smi command. If you encounter any issues, navigate to Edit -> Notebook settings -> Hardware accelerator, set it to GPU, and click Save.
+# Table of Contents
+  1. Before You Start
+  2. Clone and Install
+  3. Download Model Weights
+  4. Download Example Data
+  5. Detection with Pre-trained COCO Model
+  6. Gelan-c
+  7. Yolov9-e
+  8. Authenticate and Download the Dataset
+  9. Train Custom Model
+  10. Examine Training Results
+  11. Validate Custom Model
+  12. Inference with Custom Model
+# Before You Start
+Ensure that you have access to a GPU for faster processing. You can verify GPU access using the nvidia-smi command. If needed, navigate to Edit -> Notebook settings -> Hardware accelerator, set it to GPU, and click Save.
 
-To simplify managing datasets, images, and models, a HOME constant is defined to represent the current working directory.
-
+bash
+!nvidia-smi
 Clone and Install
-YOLOv9 is very new and still under development. We recommend using a fork of the main repository due to a bug in the detect.py script that prevents inference. This bug is patched in the fork.
+Clone the YOLO-V9 repository and install the necessary dependencies. Note that we are using a forked version of the repository due to a bug in the original.
 
-Clone the repository and install the necessary requirements.
+python
+Copy code
+import os
+HOME = os.getcwd()
+print(HOME)
 
-Additionally, install the roboflow package to download datasets from Roboflow Universe.
-
+!git clone https://github.com/SkalskiP/yolov9.git
+%cd yolov9
+!pip install -r requirements.txt -q
+!pip install -q roboflow
 Download Model Weights
-The YOLOv9 paper mentions several model versions (yolov9-s, yolov9-m), but the weights for these models are not yet available in the YOLOv9 repository. Download the available weights and save them to the weights directory.
+Download the pre-trained model weights required for YOLO-V9.
 
+bash
+Copy code
+!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-c.pt
+!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/yolov9-e.pt
+!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-c.pt
+!wget -P {HOME}/weights -q https://github.com/WongKinYiu/yolov9/releases/download/v0.1/gelan-e.pt
 Download Example Data
-To run inference using your own image file, upload the image to your environment and update the SOURCE_IMAGE_PATH with the path to your file. An example image can also be downloaded and used for testing.
+Download the example data for testing the model from the following link:
+Example Data
 
-Running the Model
-Follow the steps in the Jupyter Notebook to set up the environment, download the necessary weights and datasets, and run the model to detect wildlife in images. The notebook provides detailed instructions and code snippets to guide you through the process.
+Detection with Pre-trained COCO Model
+Use the pre-trained COCO model to perform detection on the example data.
 
-This README file provides an overview of the notebook, setup instructions, and guidelines for running the YOLOv9 model for animal life detection. For detailed code and implementation, please refer to the provided Jupyter Notebook.
+Gelan-c
+Detailed instructions for configuring Gelan-c.
+
+Yolov9-e
+Detailed instructions for configuring Yolov9-e.
+
+Authenticate and Download the Dataset
+Authenticate with Roboflow to download the dataset. Ensure the dataset is saved inside the {HOME}/yolov9 directory for successful training. The example uses the football-players-detection dataset.
+
+python
+Copy code
+from roboflow import Roboflow
+rf = Roboflow(api_key="YOUR_API_KEY")
+project = rf.workspace("roboflow-jvuqo").project("football-players-detection-3zvbc")
+dataset = project.version(1).download("yolov9")
+Train Custom Model
+Instructions and commands for training the YOLO-V9 model on the downloaded dataset will be provided in the notebook.
+
+Examine Training Results
+Analyze the results of your model training.
+
+Validate Custom Model
+Validate the performance of your custom model on a test dataset.
+
+Inference with Custom Model
+Run inference using the trained model and visualize the results. If you want to run inference using your own file as input, upload the image to the notebook and update the SOURCE_IMAGE_PATH variable with the path to your file.
+
+By default, the results of each inference session are saved in {HOME}/yolov9/runs/detect/, in directories named exp, exp2, exp3, etc. You can override this behavior using the --name parameter.
